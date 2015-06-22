@@ -1,0 +1,8 @@
+{
+	"ImportPath": "github.com/emembrives/jaccede",
+	"GoVersion": "go1.4.2",
+	"Packages": [
+		"./..."
+	],
+	"Deps": []
+}
