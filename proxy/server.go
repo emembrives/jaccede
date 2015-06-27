@@ -1,10 +1,8 @@
 package main
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
-	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -27,28 +25,18 @@ type PlaceInfo struct {
 type jsonMap map[string]interface{}
 
 var (
-	indexTmpl = template.Must(template.ParseFiles("server/template/index.html"))
-	infoTmpl  = template.Must(template.ParseFiles("server/template/infowindow.html"))
-
 	diacriticsRemover = strings.NewReplacer("é", "e", "è", "e", "à", "a", "î", "i", "ô", "o", "ë", "e", "ï", "i", "ç", "c")
-	accessibleIcon    = "/static/pictos_OVA.png"
-	lastQuery         string
-	lastResponse      *bytes.Buffer
 )
 
 func main() {
 	http.HandleFunc("/search/", searchPlace)
 	http.HandleFunc("/testrequest", makeJaccedeRequest)
-	http.HandleFunc("/", indexHandler)
-}
-
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	indexTmpl.Execute(w, Empty{})
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 func searchPlace(w http.ResponseWriter, r *http.Request) {
-	placeName := r.FormValue("placeName")
-	placeAddress := r.FormValue("placeAddress")
+	placeName := r.FormValue("name")
+	placeAddress := r.FormValue("address")
 	latitudeStr := r.FormValue("latitude")
 	longitudeStr := r.FormValue("longitude")
 
@@ -78,23 +66,19 @@ func runJaccedeQuery(name string, address string, latStr string, lngStr string) 
 	request.SetSearchParameters(0, 30)
 
 	raw_response := client.SendRequest(request)
-	var m map[string]interface{}
-	json.NewDecoder(raw_response.Response.Body).Decode(&m)
-	var places []interface{}
-	switch m["results"].(type) {
-	case map[string]interface{}:
-		places = m["results"].(map[string]interface{})["items"].([]interface{})
-	default:
+	search_response, err := raw_response.GetSearchResponse()
+	if err != nil {
+		log.Println(err)
 		return false, ""
 	}
 
 	nameMap := getWordMap(name)
 
-	for _, placeResult := range places {
-		nameResultMap := getWordMap(placeResult.(map[string]interface{})["name"].(string))
+	for _, placeResult := range search_response.Results {
+		nameResultMap := getWordMap(placeResult["name"].(string))
 		overlap, _ := wordMapOverlap(nameMap, nameResultMap)
 		if overlap >= 1 {
-			return true, placeResult.(map[string]interface{})["uid"].(string)
+			return true, placeResult["uid"].(string)
 		}
 	}
 

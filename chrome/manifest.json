@@ -1,0 +1,52 @@
+{
+    "manifest_version": 2,
+
+    "name": "Jaccede délocalisé",
+    "description": "Affiche les informations d'accessibilité de Jaccede sur les sites d'information locales tels que Yelp ou La Fourchette.",
+    "version": "0.2",
+    
+    "content_scripts": [
+        {
+            "matches": [
+                "http://www.yelp.fr/search*",
+                "https://www.yelp.fr/search*"
+            ],
+            "css": ["extension.css"],
+            "js": ["jquery-1.11.3.min.js", "extension.js", "yelp_search.js"]
+        },
+        {
+            "matches": [
+                "http://www.yelp.fr/biz*",
+                "https://www.yelp.fr/biz*"
+            ],
+            "css": ["extension.css"],
+            "js": ["jquery-1.11.3.min.js", "extension.js", "yelp_place.js"]
+        },
+        {
+            "matches": [
+                "http://www.lafourchette.com/recherche*",
+                "https://www.lafourchette.com/recherche*",
+                "http://www.lafourchette.com/restaurant+*",
+                "https://www.lafourchette.com/restaurant+*"
+            ],
+            "css": ["extension.css"],
+            "js": ["jquery-1.11.3.min.js", "extension.js", "lafourchette_search.js"]
+        },
+        {
+            "matches": [
+                "http://www.lafourchette.com/restaurant/*",
+                "https://www.lafourchette.com/restaurant/*"
+            ],
+            "css": ["extension.css"],
+            "js": ["jquery-1.11.3.min.js", "extension.js", "lafourchette_place.js"]
+        }
+    ],
+    "permissions": [
+        "activeTab",
+        "http://www.yelp.fr/*",
+        "https://www.yelp.fr/*",
+        "http://www.lafourchette.com/*",
+        "https://www.lafourchette.com/*",
+        "http://localhost:8080/*"
+    ]
+}

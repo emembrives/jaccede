@@ -4,6 +4,7 @@ import (
 	"crypto/hmac"
 	"crypto/sha1"
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -77,8 +78,22 @@ func (request *SearchRequest) GetRequestUrl() url.URL {
 	return u
 }
 
+type SearchResponse struct {
+	TotalFound  int
+	QueryOffset int
+	QueryLang   string
+	QueryLimit  int
+	Results     []map[string]interface{}
+}
+
 type JaccedeResponse struct {
 	Response *http.Response
+}
+
+func (jr *JaccedeResponse) GetSearchResponse() (*SearchResponse, error) {
+	sr := &SearchResponse{}
+	err := json.NewDecoder(jr.Response.Body).Decode(sr)
+	return sr, err
 }
 
 type JaccedeClient struct {
@@ -105,23 +120,24 @@ func (client *JaccedeClient) SendRequest(request JaccedeRequest) *JaccedeRespons
 	if err != nil {
 		panic(err)
 	}
+
 	return &JaccedeResponse{Response: response}
 }
 
 func (client *JaccedeClient) computeHeader(url *url.URL, t time.Time) http.Header {
-	key_id := "test-jispapi-access-key-id"
-	secret_key := []byte("test-jispapi-secret-access-key")
+	key_id := "84e36cfa-cdcc-11e4-b5a3-fefdb24f8291"
+	secret_key := []byte("85ae8d2db5bb0e96f53d97f4c0e543fae175d9b12f29b7e6b4b935903d3830cb")
 	now_secs := t.Unix()
 	string_to_sign := strings.Join([]string{"GET",
-		"x-jispapi-timestamp:" + strconv.FormatInt(now_secs, 10),
+		"x-jaccedeapi-timestamp:" + strconv.FormatInt(now_secs, 10),
 		url.Path}, "\n")
 	hasher := hmac.New(sha1.New, secret_key)
 	io.WriteString(hasher, string_to_sign)
 	var hexHash string = fmt.Sprintf("%x", hasher.Sum(nil))
 	var b64_signature string = base64.StdEncoding.EncodeToString([]byte(hexHash))
 	var headers http.Header = make(http.Header)
-	headers.Add("x-jispapi-timestamp", fmt.Sprintf("%d", now_secs))
+	headers.Add("x-jaccedeapi-timestamp", fmt.Sprintf("%d", now_secs))
 	headers.Add("Authorization",
-		fmt.Sprintf("JISPAPI %s:%s", key_id, b64_signature))
+		fmt.Sprintf("JACCEDEAPI %s:%s", key_id, b64_signature))
 	return headers
 }
