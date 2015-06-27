@@ -8,8 +8,10 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	jaccede "github.com/emembrives/jaccede/api"
+	gocache "github.com/pmylund/go-cache"
 )
 
 type Empty struct{}
@@ -26,6 +28,10 @@ type jsonMap map[string]interface{}
 
 var (
 	diacriticsRemover = strings.NewReplacer("é", "e", "è", "e", "à", "a", "î", "i", "ô", "o", "ë", "e", "ï", "i", "ç", "c")
+
+	// Create a cache with a default expiration time of 5 minutes, and which
+	// purges expired items every 30 seconds
+	cache = gocache.New(24*time.Hour, 30*time.Minute)
 )
 
 func main() {
@@ -40,11 +46,23 @@ func searchPlace(w http.ResponseWriter, r *http.Request) {
 	latitudeStr := r.FormValue("latitude")
 	longitudeStr := r.FormValue("longitude")
 
+	info := PlaceInfo{Name: placeName, Address: placeAddress}
+
+	if fullInfo, ok := cache.Get(fmt.Sprint(info)); ok {
+		if err := json.NewEncoder(w).Encode(&fullInfo); err != nil {
+			panic(err)
+		}
+	}
+
 	found, uid := runJaccedeQuery(placeName, placeAddress, latitudeStr, longitudeStr)
 
-	info := PlaceInfo{Name: placeName, Address: placeAddress, Accessible: found, JaccedeUid: uid}
+	fullInfo := info
+	fullInfo.Accessible = found
+	fullInfo.JaccedeUid = uid
 
-	if err := json.NewEncoder(w).Encode(&info); err != nil {
+	cache.Set(fmt.Sprint(info), fullInfo, gocache.DefaultExpiration)
+
+	if err := json.NewEncoder(w).Encode(&fullInfo); err != nil {
 		panic(err)
 	}
 }
