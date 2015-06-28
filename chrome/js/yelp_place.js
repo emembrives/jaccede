@@ -1,5 +1,5 @@
 function getAllPlacesOnPage() {
-    var placeElems = $(".content-container:has(.biz-page-title)");
+    var placeElems = $(document).find(".content-container:has(.biz-page-title)");
     var places = []
     placeElems.each(function(index, placeElem) {
         var name = $(placeElem).find(".biz-page-title").text().trim();

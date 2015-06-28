@@ -1,0 +1,13 @@
+{
+  "title": "Jaccede partout",
+  "name": "firefox",
+  "version": "0.0.0",
+  "description": "Add-on description to be filled here",
+  "main": "index.js",
+  "author": "Etienne Membrives",
+  "engines": {
+    "firefox": ">=38.0a1",
+    "fennec": ">=38.0a1"
+  },
+  "license": "Apache 2.0"
+}

@@ -7,6 +7,7 @@
         "128": "extension_128.png"
     },
     "version": "0.3",
+    "author": "Etienne Membrives <etienne@membrives.fr>",
     
     "content_scripts": [
         {
@@ -15,7 +16,7 @@
                 "https://www.yelp.fr/search*"
             ],
             "css": ["extension.css"],
-            "js": ["jquery-1.11.3.min.js", "extension.js", "yelp_search.js"]
+            "js": ["js/jquery-1.11.3.min.js", "js/extension.js", "js/yelp_search.js"]
         },
         {
             "matches": [
@@ -23,7 +24,7 @@
                 "https://www.yelp.fr/biz*"
             ],
             "css": ["extension.css"],
-            "js": ["jquery-1.11.3.min.js", "extension.js", "yelp_place.js"]
+            "js": ["js/jquery-1.11.3.min.js", "js/extension.js", "js/yelp_place.js"]
         },
         {
             "matches": [
@@ -33,7 +34,7 @@
                 "https://www.lafourchette.com/restaurant+*"
             ],
             "css": ["extension.css"],
-            "js": ["jquery-1.11.3.min.js", "extension.js", "lafourchette_search.js"]
+            "js": ["js/jquery-1.11.3.min.js", "js/extension.js", "js/lafourchette_search.js"]
         },
         {
             "matches": [
@@ -41,7 +42,7 @@
                 "https://www.lafourchette.com/restaurant/*"
             ],
             "css": ["extension.css"],
-            "js": ["jquery-1.11.3.min.js", "extension.js", "lafourchette_place.js"]
+            "js": ["js/jquery-1.11.3.min.js", "js/extension.js", "js/lafourchette_place.js"]
         },
         {
             "matches": [
@@ -49,7 +50,7 @@
                 "https://www.tripadvisor.fr/*_Review-"
             ],
             "css": ["extension.css"],
-            "js": ["jquery-1.11.3.min.js", "extension.js", "tripadvisor_place.js"]
+            "js": ["js/jquery-1.11.3.min.js", "js/extension.js", "js/tripadvisor_place.js"]
         },
         {
             "matches": [
@@ -57,7 +58,7 @@
                 "https://lefooding.com/fr/restaurants*"
             ],
             "css": ["extension.css"],
-            "js": ["jquery-1.11.3.min.js", "extension.js", "fooding_search.js"]
+            "js": ["js/jquery-1.11.3.min.js", "js/extension.js", "js/fooding_search.js"]
         }
     ],
     "permissions": [

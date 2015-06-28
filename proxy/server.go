@@ -40,6 +40,10 @@ func main() {
 }
 
 func searchPlace(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Access-Control-Allow-Origin", "*")
+	w.Header().Add("Access-Control-Allow-Methods", "GET")
+	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")
+
 	placeName := r.FormValue("name")
 	placeAddress := r.FormValue("address")
 	latitudeStr := r.FormValue("latitude")
