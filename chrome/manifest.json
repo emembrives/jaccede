@@ -1,9 +1,12 @@
 {
     "manifest_version": 2,
 
-    "name": "Jaccede délocalisé",
-    "description": "Affiche les informations d'accessibilité de Jaccede sur les sites d'information locales tels que Yelp ou La Fourchette.",
-    "version": "0.2",
+    "name": "Jaccede partout",
+    "description": "Affiche les informations d'accessibilité de Jaccede.com sur les sites d'information locales. Sont supportés Yelp, La Fourchette, TripAdvisor (page de lieu uniquement) et Le Fooding (recherche uniquement).",
+    "icons": {
+        "128": "extension_128.png"
+    },
+    "version": "0.3",
     
     "content_scripts": [
         {
@@ -63,6 +66,6 @@
         "https://www.yelp.fr/*",
         "http://www.lafourchette.com/*",
         "https://www.lafourchette.com/*",
-        "http://localhost:9050/*"
+        "https://etienne.membrives.fr/jaccede/proxy/*"
     ]
 }

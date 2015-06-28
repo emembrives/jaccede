@@ -44,3 +44,7 @@ _testmain.go
 Session.vim
 .netrwhist
 *~
+
+### Chrome
+*.crx
+*.pem

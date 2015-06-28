@@ -5,7 +5,7 @@ function queryJaccede(name, address, latitude, longitude, resultElem) {
         postData["longitude"] = longitude;
     }
 
-    $.post("http://localhost:9050/",
+    $.post("https://etienne.membrives.fr/jaccede/proxy/",
            postData,
            function(accessData){
                 processJaccedeResponse(JSON.parse(accessData), resultElem);
