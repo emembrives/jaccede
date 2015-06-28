@@ -5,10 +5,10 @@
           <em:type>2</em:type>
           <em:bootstrap>true</em:bootstrap>
           <em:unpack>false</em:unpack>
-          <em:version>0.0.0</em:version>
+          <em:version>0.3</em:version>
           <em:name>Jaccede partout</em:name>
-          <em:description>Add-on description to be filled here</em:description>
-          <em:creator>Etienne Membrives</em:creator>
+          <em:description>Affiche les informations d'accessibilité de Jaccede.com sur les sites d'information locales. Sont supportés Yelp, La Fourchette, TripAdvisor (page de lieu uniquement) et Le Fooding (recherche uniquement).</em:description>
+          <em:creator>Etienne Membrives &lt;etienne@membrives.fr&gt;</em:creator>
 
           <em:targetApplication>
             <Description>

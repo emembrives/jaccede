@@ -1,10 +1,10 @@
 {
   "title": "Jaccede partout",
   "name": "firefox",
-  "version": "0.0.0",
-  "description": "Add-on description to be filled here",
+  "version": "0.3",
+  "description": "Affiche les informations d'accessibilité de Jaccede.com sur les sites d'information locales. Sont supportés Yelp, La Fourchette, TripAdvisor (page de lieu uniquement) et Le Fooding (recherche uniquement).",
   "main": "index.js",
-  "author": "Etienne Membrives",
+  "author": "Etienne Membrives <etienne@membrives.fr>",
   "engines": {
     "firefox": ">=38.0a1",
     "fennec": ">=38.0a1"
