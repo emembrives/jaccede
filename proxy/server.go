@@ -35,9 +35,8 @@ var (
 )
 
 func main() {
-	http.HandleFunc("/search/", searchPlace)
-	http.HandleFunc("/testrequest", makeJaccedeRequest)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	http.HandleFunc("/", searchPlace)
+	log.Fatal(http.ListenAndServe("localhost:9050", nil))
 }
 
 func searchPlace(w http.ResponseWriter, r *http.Request) {
@@ -52,6 +51,7 @@ func searchPlace(w http.ResponseWriter, r *http.Request) {
 		if err := json.NewEncoder(w).Encode(&fullInfo); err != nil {
 			panic(err)
 		}
+		return
 	}
 
 	found, uid := runJaccedeQuery(placeName, placeAddress, latitudeStr, longitudeStr)

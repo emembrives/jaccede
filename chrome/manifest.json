@@ -47,6 +47,6 @@
         "https://www.yelp.fr/*",
         "http://www.lafourchette.com/*",
         "https://www.lafourchette.com/*",
-        "http://localhost:8080/*"
+        "http://localhost:9050/*"
     ]
 }

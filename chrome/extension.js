@@ -5,7 +5,7 @@ function queryJaccede(name, address, latitude, longitude, resultElem) {
         postData["longitude"] = longitude;
     }
 
-    $.post("http://localhost:8080/search/",
+    $.post("http://localhost:9050/",
            postData,
            function(accessData){
                 processJaccedeResponse(JSON.parse(accessData), resultElem);
