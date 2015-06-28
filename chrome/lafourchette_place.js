@@ -7,5 +7,5 @@ function getAllPlacesOnPage() {
         var resultElem = $(placeElem).find(".span10");
         places.push({name: name, address: address, resultElem: resultElem});
     });
-    return places;
+    return {places: places};
 }

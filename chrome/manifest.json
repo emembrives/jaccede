@@ -39,6 +39,22 @@
             ],
             "css": ["extension.css"],
             "js": ["jquery-1.11.3.min.js", "extension.js", "lafourchette_place.js"]
+        },
+        {
+            "matches": [
+                "http://www.tripadvisor.fr/*_Review-*",
+                "https://www.tripadvisor.fr/*_Review-"
+            ],
+            "css": ["extension.css"],
+            "js": ["jquery-1.11.3.min.js", "extension.js", "tripadvisor_place.js"]
+        },
+        {
+            "matches": [
+                "http://lefooding.com/fr/restaurants*",
+                "https://lefooding.com/fr/restaurants*"
+            ],
+            "css": ["extension.css"],
+            "js": ["jquery-1.11.3.min.js", "extension.js", "fooding_search.js"]
         }
     ],
     "permissions": [

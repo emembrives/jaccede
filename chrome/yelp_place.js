@@ -11,5 +11,5 @@ function getAllPlacesOnPage() {
         var resultElem = $(placeElem).find(".biz-page-title");
         places.push({name: name, address: address, resultElem: resultElem});
     });
-    return places;
+    return {places: places};
 }

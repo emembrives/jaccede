@@ -7,5 +7,5 @@ function getAllPlacesOnPage() {
         var resultElem = $(placeElem).find(".media-story");
         places.push({name: name, address: address, resultElem: resultElem});
     });
-    return places;
+    return {places: places, container: $(".search-results-content")};
 }
