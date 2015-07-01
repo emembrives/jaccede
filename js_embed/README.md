@@ -21,3 +21,11 @@ You then have to initialize it:
 ```
 
 Then call `jaccedeCallback()`, without arguments, to decorate the page (e.g.: each time new places are loaded).
+
+Files
+-----
+ - `js_embed/jaccede.js` contains the source code for the library
+ - `js_embed/compress.js` contains the build step to compress and minify the library
+ - `bin/jaccede.min.js` contains the minified, "production-ready" library
+
+`js_embed/test` contains test files.
