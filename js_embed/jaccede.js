@@ -15,6 +15,14 @@
  **/
 
 function jaccede(API_URL, API_KEY) {
+    function _toFormData(data) {
+        var formData = new FormData();
+        for (var index in data) {
+            formData.append(index, data[index]);
+        }
+        return formData;
+    }
+
     function _queryJaccede(name, address, latitude, longitude, resultElem) {
         var postData = {name: name, address: address}
         if (latitude != undefined && longitude != undefined) {
@@ -37,7 +45,6 @@ function jaccede(API_URL, API_KEY) {
 
         var request = new XMLHttpRequest();
         request.open('POST', API_URL, true);
-        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         request.onreadystatechange = function() {
             if (this.readyState === 4) {
                 if (this.status >= 200 && this.status < 400) {
@@ -49,7 +56,7 @@ function jaccede(API_URL, API_KEY) {
             }
         };
 
-        request.send(postData);
+        request.send(_toFormData(postData));
         request = null;
     }
 
