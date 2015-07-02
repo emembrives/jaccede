@@ -1,7 +1,7 @@
 var UglifyJS = require('uglify-js');
 var fs = require('fs');
 
-var result = UglifyJS.minify('jaccede.js', {
+var result = UglifyJS.minify(['sha256.js', 'jaccede.js'], {
 	mangle: true,
 	compress: {
 		sequences: true,

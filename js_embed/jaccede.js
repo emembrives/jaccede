@@ -16,11 +16,24 @@
 
 function jaccede(API_URL, API_KEY) {
     function _queryJaccede(name, address, latitude, longitude, resultElem) {
-        var postData = {name: name, address: address, key: API_KEY}
+        var postData = {name: name, address: address}
         if (latitude != undefined && longitude != undefined) {
             postData["latitude"] = latitude;
             postData["longitude"] = longitude;
         }
+
+        // Sign the request.
+        // On the server-side, we should:
+        //  - Get the recorded API key for the request referer
+        //  - If no known API key exists for the host, reject the request
+        //  - Compute the HMAC of the request
+        //  - Verify the provided and computed hashes match
+        //  - If match, accept the request
+        var shaObj = new jsSHA("SHA-256", "TEXT");
+        shaObj.setHMACKey(API_KEY, "TEXT");
+        shaObj.update(window.location);
+        shaObj.update(JSON.stringify(postData));
+        postData['hash'] = shaObj.getHMAC("HEX");
 
         var request = new XMLHttpRequest();
         request.open('POST', API_URL, true);
